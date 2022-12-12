@@ -1,4 +1,4 @@
-# Adaptive Training Demo
+# Adaptive Training Kubernetes Demo
 
 ### kubectl apply commands in order
     
