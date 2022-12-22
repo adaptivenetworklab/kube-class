@@ -39,3 +39,4 @@
 
 11. Buat konfigurasi eksternal akses dalam frontend service agar bisa diakses internet. 
 
+12. Manifest currency dan payment service bermasalah. 

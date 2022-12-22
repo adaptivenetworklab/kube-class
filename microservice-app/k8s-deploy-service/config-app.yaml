@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: email
-        image: gcr.io/google-samples/microservices-demo/emailservice
+        image: gcr.io/google-samples/microservices-demo/emailservice:v0.5.0
         ports:
         - containerPort: 8080
         env:
@@ -49,7 +49,7 @@ spec:
     spec:
       containers:
       - name: recommendation
-        image: gcr.io/google-samples/microservices-demo/recommendationservice
+        image: gcr.io/google-samples/microservices-demo/recommendationservice:v0.5.0
         ports:
         - containerPort: 8080
         env:
@@ -87,7 +87,7 @@ spec:
     spec:
       containers:
       - name: productcatalog
-        image: gcr.io/google-samples/microservices-demo/productcatalogservice
+        image: gcr.io/google-samples/microservices-demo/productcatalogservice:v0.5.0
         ports:
         - containerPort: 3550
         env:
@@ -120,14 +120,43 @@ spec:
       labels:
         app: paymentservice
     spec:
+      serviceAccountName: default
+      terminationGracePeriodSeconds: 5
+      securityContext:
+        fsGroup: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
       containers:
-      - name: payment
-        image: gcr.io/google-samples/microservices-demo/paymentservice
+      - name: server
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - all
+          privileged: false
+          readOnlyRootFilesystem: true
+        image: gcr.io/google-samples/microservices-demo/paymentservice:v0.5.0
         ports:
         - containerPort: 50051
         env:
         - name: PORT
           value: "50051"
+        - name: DISABLE_PROFILER
+          value: "1"
+        readinessProbe:
+          exec:
+            command: ["/bin/grpc_health_probe", "-addr=:50051"]
+        livenessProbe:
+          exec:
+            command: ["/bin/grpc_health_probe", "-addr=:50051"]
+        resources:
+          requests:
+            cpu: 100m
+            memory: 64Mi
+          limits:
+            cpu: 200m
+            memory: 128Mi
 ---
 apiVersion: v1
 kind: Service
@@ -138,7 +167,7 @@ spec:
   selector:
     app: paymentservice
   ports:
-  - protocol: TCP
+  - name: grpc
     port: 50051
     targetPort: 50051
 ---
@@ -155,14 +184,44 @@ spec:
       labels:
         app: currencyservice
     spec:
+      serviceAccountName: default
+      terminationGracePeriodSeconds: 5
+      securityContext:
+        fsGroup: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
       containers:
-      - name: currency
-        image: gcr.io/google-samples/microservices-demo/currencyservice
+      - name: server
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - all
+          privileged: false
+          readOnlyRootFilesystem: true
+        image: gcr.io/google-samples/microservices-demo/currencyservice:v0.5.0
         ports:
-        - containerPort: 7000
+        - name: grpc
+          containerPort: 7000
         env:
         - name: PORT
           value: "7000"
+        - name: DISABLE_PROFILER
+          value: "1"
+        readinessProbe:
+          exec:
+            command: ["/bin/grpc_health_probe", "-addr=:7000"]
+        livenessProbe:
+          exec:
+            command: ["/bin/grpc_health_probe", "-addr=:7000"]
+        resources:
+          requests:
+            cpu: 100m
+            memory: 64Mi
+          limits:
+            cpu: 200m
+            memory: 128Mi
 ---
 apiVersion: v1
 kind: Service
@@ -173,7 +232,7 @@ spec:
   selector:
     app: currencyservice
   ports:
-  - protocol: TCP
+  - name: grpc
     port: 7000
     targetPort: 7000
 ---
@@ -192,7 +251,7 @@ spec:
     spec:
       containers:
       - name: shipping
-        image: gcr.io/google-samples/microservices-demo/shippingservice
+        image: gcr.io/google-samples/microservices-demo/shippingservice:v0.5.0
         ports:
         - containerPort: 50051
         env:
@@ -227,7 +286,7 @@ spec:
     spec:
       containers:
       - name: ad
-        image: gcr.io/google-samples/microservices-demo/adservice
+        image: gcr.io/google-samples/microservices-demo/adservice:v0.5.0
         ports:
         - containerPort: 9555
         env:
@@ -262,7 +321,7 @@ spec:
     spec:
       containers:
       - name: cart
-        image: gcr.io/google-samples/microservices-demo/cartservice
+        image: gcr.io/google-samples/microservices-demo/cartservice:v0.5.0
         ports:
         - containerPort: 7070
         env:
@@ -302,7 +361,7 @@ spec:
         image: redis:alpine
         ports:
         - containerPort: 6379
-        volumeMount:
+        volumeMounts:
         - name: redis-data
           mountPath: /data
       volumes:
@@ -337,7 +396,7 @@ spec:
     spec:
       containers:
       - name: checkout
-        image: gcr.io/google-samples/microservices-demo/checkoutservice
+        image: gcr.io/google-samples/microservices-demo/checkoutservice:v0.5.0
         ports:
         - containerPort: 5050
         env: # List ada di main go checkout service
@@ -384,7 +443,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: gcr.io/google-samples/microservices-demo/frontend
+        image: gcr.io/google-samples/microservices-demo/frontend:v0.5.0
         ports:
         - containerPort: 8080
         env:
@@ -418,4 +477,4 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 8080
-    NodePort: 30007
+    nodePort: 30007
