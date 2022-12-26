@@ -2,68 +2,34 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: traefik-ingress-controller
-  namespace: kube-system
+  name: traefik-account
 ---
 kind: Deployment
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 metadata:
-  name: traefik-ingress-controller
-  namespace: kube-system
+  name: traefik-deployment
   labels:
-    k8s-app: traefik-ingress-lb
+    app: traefik
+
 spec:
   replicas: 1
   selector:
     matchLabels:
-      k8s-app: traefik-ingress-lb
+      app: traefik
   template:
     metadata:
       labels:
-        k8s-app: traefik-ingress-lb
-        name: traefik-ingress-lb
+        app: traefik
     spec:
-      serviceAccountName: traefik-ingress-controller
-      terminationGracePeriodSeconds: 60
+      serviceAccountName: traefik-account
       containers:
-      - image: traefik:v1.7.18-alpine
-        name: traefik-ingress-lb
-        ports:
-        - name: http
-          containerPort: 80
-        - name: https
-          containerPort: 443
-        - name: admin
-          containerPort: 8080
-        args:
-        - --api
-        - --kubernetes
-        - --logLevel=INFO
-        - --configFile=/etc/traefik/config.toml
-        volumeMounts:
-        - name: traefik-config
-          mountPath: /etc/traefik/
-      volumes:
-        - name: traefik-config
-          configMap:
-            name: traefik-config
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: traefik-ingress-service
-  namespace: kube-system
-spec:
-  selector:
-    k8s-app: traefik-ingress-lb
-  type: LoadBalancer
-  ports:
-    - protocol: TCP
-      port: 80
-      name: web
-    - protocol: TCP
-      port: 443
-      name: https
-    - protocol: TCP
-      port: 8080
-      name: admin
+        - name: traefik
+          image: traefik:v2.9
+          args:
+            - --api.insecure
+            - --providers.kubernetesingress
+          ports:
+            - name: web
+              containerPort: 80
+            - name: dashboard
+              containerPort: 8080
