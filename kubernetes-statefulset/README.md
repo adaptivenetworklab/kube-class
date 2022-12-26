@@ -19,7 +19,6 @@ kubectl get storageclass
 
 ```
 kubectl -n example apply -f .\kubernetes\statefulsets\statefulset.yaml
-kubectl -n example apply -f .\kubernetes\statefulsets\example-app.yaml
 ```
 
 4. Enable Redis Cluster
@@ -29,6 +28,13 @@ $IPs = $(kubectl -n example get pods -l app=redis-cluster -o jsonpath='{range.it
 kubectl -n example exec -it redis-cluster-0  -- /bin/sh -c "redis-cli -h 127.0.0.1 -p 6379 --cluster create ${IPs}"
 kubectl -n example exec -it redis-cluster-0  -- /bin/sh -c "redis-cli -h 127.0.0.1 -p 6379 cluster info"
 ```
+
+5. Deploy sample application
+```
+kubectl -n example apply -f .\kubernetes\statefulsets\example-app.yaml
+```
+
+
 
 ### Referensi
 https://rancher.com/blog/2019/deploying-redis-cluster 
