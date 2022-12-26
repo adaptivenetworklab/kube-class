@@ -3,11 +3,12 @@ kind: Service
 metadata:
   name: hit-counter-lb
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
   - port: 80
     protocol: TCP
     targetPort: 5000
+    nodePort: 30002
   selector:
       app: myapp
 ---

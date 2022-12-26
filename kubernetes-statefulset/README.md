@@ -25,7 +25,7 @@ kubectl -n example apply -f .\kubernetes\statefulsets\statefulset.yaml
 
 ```
 $IPs = $(kubectl -n example get pods -l app=redis-cluster -o jsonpath='{range.items[*]}{.status.podIP}:6379 ')
-kubectl -n example exec -it redis-cluster-0  -- /bin/sh -c "redis-cli -h 127.0.0.1 -p 6379 --cluster create ${IPs}"
+kubectl -n example exec -it redis-cluster-0  -- /bin/sh -c "redis-cli -h "$REDIS_PORT_6379_TCP_ADDR" -p "$REDIS_PORT_6379_TCP_PORT" --cluster create ${IPs}"
 kubectl -n example exec -it redis-cluster-0  -- /bin/sh -c "redis-cli -h 127.0.0.1 -p 6379 cluster info"
 ```
 
@@ -33,6 +33,8 @@ kubectl -n example exec -it redis-cluster-0  -- /bin/sh -c "redis-cli -h 127.0.0
 ```
 kubectl -n example apply -f .\kubernetes\statefulsets\example-app.yaml
 ```
+
+6. Akses Aplikasi di localhost:30002
 
 
 
