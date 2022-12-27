@@ -1,6 +1,6 @@
 # Adaptive Training Kubernetes Demo
 
-[![Image](https://stacksimplify.com/course-images/AWS-EKS-Kubernetes-Masterclass-DevOps-Microservices-course.png "AWS EKS Kubernetes - Masterclass")](https://www.udemy.com/course/aws-eks-kubernetes-masterclass-devops-microservices/?referralCode=257C9AD5B5AF8D12D1E1)
+[![Image](https://github.com/adaptivenetwork-lab/artwork/blob/master/logos/Horizontal_white.png "AWS EKS Kubernetes - Masterclass")](https://training.adaptivenetworklab.org/)
 
 ## Course Modules
 
