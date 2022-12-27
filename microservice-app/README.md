@@ -40,3 +40,26 @@
 11. Buat konfigurasi eksternal akses dalam frontend service agar bisa diakses internet. 
 
 12. Manifest currency dan payment service bermasalah. 
+
+## Security Best Practice
+
+• Production and Security Best Practices (Demo Lanjutan)
+Best Practice 1 - Pinned (Tag) Version untuk setiap Container Image
+Best Practice 2 - Liveness Probe untuk setiap Container
+Best Practice 3 - Readiness Probe untuk setiap Container
+Best Practice 4 - Resource request untuk setiap container
+Best Practice 5 - Resource Limit untuk setiap container
+Best Practice 6 - Ingress sebagai External Service Receiver
+Best Practice 7 - Lebih Dari 1 Replica untuk Deployment
+
+• Create a Helm Chart for Microservice (Demo Lanjutan)
+Struktur Dasar dari Helm Chart
+Membuat Basic Template File
+Konfigurasi Dynamic Environment Variable
+Helm Rendering Process
+Step by step Membuat Shared Helm Chart untuk setiap microservice
+
+• Deploy Microservice with Helmfile (Demo)
+Apa itu helmfile
+Membuat helmfile
+Step by step cara men-deploy microservice dengan helmfile
