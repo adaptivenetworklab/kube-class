@@ -18,6 +18,8 @@ Kita tidak perlu mengetahui semua maksud atau arti kodingan dari developer untuk
 
 ## Cara Aplikasi Online Butik Berkerja
 
+<img src="https://github.com/raflihadiana/kube-class/blob/main/assets/picture/Arsitekture%20Aplikasi%20Butik.png">
+
 1. Terdapat service frontend yang nantinya akan memforward trafik user ke service ad, checkout, shipping, currency, recommendation dan cat.
 
 2. Selain itu cart service membutuhkan redis untuk menyimpan data. 
