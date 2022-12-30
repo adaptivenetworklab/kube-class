@@ -1,5 +1,21 @@
 # NOTE
 
+## Hal yang Perlu Diperhatikan
+
+Kita tidak perlu mengetahui semua maksud atau arti kodingan dari developer untuk mendeploy aplikasi. Yang perlu diperhatikan adalah:
+- Service apa saja yang akan di deploy
+- Bagaimana antar service bisa berkomunikasi satu sama lain
+- Apakah butuh 3rd party service (massage broker) atau butuh database?
+- Service mana saja yang bisa diakses dari luar cluster (frontend)
+- Harus tau nama image docker dari setiap microservice
+- Harus tau environment variable apa saja yang dipakai
+- Harus tau port service berapa saja yang dipakai
+- Satu tim developer developing semua microservice ini (dalam case ini) jadi dalam satu namespace
+
+## Hal yang harus dilakukan
+- Membuat Konfigurasi file Deployment untuk setiap microservice
+- Membuat konfigurasi file services untuk setiap microservice
+
 ## Cara Aplikasi Online Butik Berkerja
 
 1. Terdapat service frontend yang nantinya akan memforward trafik user ke service ad, checkout, shipping, currency, recommendation dan cat.
