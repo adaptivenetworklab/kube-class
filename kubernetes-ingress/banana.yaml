@@ -2,6 +2,7 @@ kind: Pod
 apiVersion: v1
 metadata:
   name: banana-app
+  namespace: dev
   labels:
     app: banana
 spec:
@@ -16,6 +17,7 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
+  namespace: dev
   name: banana-service
 spec:
   selector:

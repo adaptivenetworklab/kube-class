@@ -49,6 +49,8 @@ Follow "Create your Amazon EKS cluster IAM role" [here](https://docs.aws.amazon.
 
 # create our role for EKS
 role_arn=$(aws iam create-role --role-name getting-started-eks-role --assume-role-policy-document file://assume-policy.json | jq .Role.Arn | sed s/\"//g)
+
+# attach policy to existing role
 aws iam attach-role-policy --role-name getting-started-eks-role --policy-arn arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
 
 # create the cluster VPC
@@ -64,7 +66,7 @@ aws cloudformation list-stack-resources --stack-name getting-started-eks > stack
 aws eks create-cluster \
 --name getting-started-eks \
 --role-arn $role_arn \
---resources-vpc-config subnetIds=subnet-063efe1fa0c5d4913,subnet-06f91e563755e2077,subnet-0824d16f8536b3681,securityGroupIds=sg-0960d3a116ba912e1,endpointPublicAccess=true,endpointPrivateAccess=false
+--resources-vpc-config subnetIds=subnet-0cfab55b83165aecd,subnet-01603db908dedb5a5,subnet-0b9c7722be25c2442,securityGroupIds=sg-0e2a551831561d665,endpointPublicAccess=true,endpointPrivateAccess=false
 
 aws eks list-clusters
 aws eks describe-cluster --name getting-started-eks
@@ -107,7 +109,7 @@ aws eks create-nodegroup \
 --cluster-name getting-started-eks \
 --nodegroup-name test \
 --node-role $role_arn \
---subnets subnet-0ec47e6ae964a233f \
+--subnets subnet-0cfab55b83165aecd \
 --disk-size 200 \
 --scaling-config minSize=1,maxSize=2,desiredSize=1 \
 --instance-types t2.small
@@ -130,7 +132,7 @@ chmod 400 ~/.ssh/id_rsa*
 
 eksctl create cluster --name getting-started-eks \
 --region ap-southeast-2 \
---version 1.16 \
+--version 1.20 \
 --managed \
 --node-type t2.small \
 --nodes 1 \
@@ -159,10 +161,10 @@ kubectl apply -n example-app -f services/service.yaml
 
 ```
 
-eksctl delete cluster --name getting-started-eks-1
+eksctl delete cluster --name adaptive-training
 
-aws eks delete-nodegroup --cluster-name getting-started-eks --nodegroup-name test
-aws eks delete-cluster --name getting-started-eks
+aws eks delete-nodegroup --cluster-name adaptive-training --nodegroup-name test
+aws eks delete-cluster --name adaptive-training
 
 aws iam detach-role-policy --role-name getting-started-eks-role --policy-arn arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
 aws iam delete-role --role-name getting-started-eks-role
@@ -173,5 +175,5 @@ aws iam detach-role-policy --role-name getting-started-eks-role-nodes --policy-a
 
 aws iam delete-role --role-name getting-started-eks-role-nodes
 
-aws cloudformation delete-stack --stack-name getting-started-eks
+aws cloudformation delete-stack --stack-name adaptive-training
 ```

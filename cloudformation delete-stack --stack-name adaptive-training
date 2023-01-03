@@ -1,0 +1,64 @@
+{
+    "cluster": {
+        "name": "adaptive-training",
+        "arn": "arn:aws:eks:ap-northeast-1:505555870255:cluster/adaptive-training",
+        "createdAt": "2022-12-31T16:22:10.319000+00:00",
+        "version": "1.20",
+        "endpoint": "https://184B6282FAE04F4D0846FBC482BAAF2E.yl4.ap-northeast-1.eks.amazonaws.com",
+        "roleArn": "arn:aws:iam::505555870255:role/eksctl-adaptive-training-cluster-ServiceRole-1B9S77SOQATPF",
+        "resourcesVpcConfig": {
+            "subnetIds": [
+                "subnet-08c687fddad9e2847",
+                "subnet-065ead6fb8d126ee1",
+                "subnet-0292c7d21a0b4443d",
+                "subnet-06ab7163b115c66dc",
+                "subnet-0abfe2426bf28f1f1",
+                "subnet-09ec941864cb384bb"
+            ],
+            "securityGroupIds": [
+                "sg-0d88c8c104e500dd9"
+            ],
+            "clusterSecurityGroupId": "sg-03b748f05baf561d1",
+            "vpcId": "vpc-0dca04c422a0966f0",
+            "endpointPublicAccess": true,
+            "endpointPrivateAccess": false,
+            "publicAccessCidrs": [
+                "0.0.0.0/0"
+            ]
+        },
+        "logging": {
+            "clusterLogging": [
+                {
+                    "types": [
+                        "api",
+                        "audit",
+                        "authenticator",
+                        "controllerManager",
+                        "scheduler"
+                    ],
+                    "enabled": false
+                }
+            ]
+        },
+        "identity": {
+            "oidc": {
+                "issuer": "https://oidc.eks.ap-northeast-1.amazonaws.com/id/184B6282FAE04F4D0846FBC482BAAF2E"
+            }
+        },
+        "status": "DELETING",
+        "certificateAuthority": {
+            "data": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM1ekNDQWMrZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRJeU1USXpNVEUyTWpjeE9Wb1hEVE15TVRJeU9ERTJNamN4T1Zvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTXZrCjJuNXdEbXkzQi9wYzZxMStMQWNpY0JtYjRYbEZUTG1yTTlaSDdwalVWMlROUkZlUHNTYTFKc0NLc0NGK05WRjkKZVI5S2JXRWNwdmxzTFpyWFNNK2lDMXZTaWNUSXFuSDY2eEhqY2ZLTXgrOFQ3Qnp1NVN0RXArOHNEbEM1aHJGYgpVd1ZmTDk2OU9Pb3N4V3RNVmcwbkdTc0VjbzJQOWVoNjdvQ1p1bmEyZnB4ZUJVVXhpL2ZNOHhybVdwVFU1ZzFPClJtQ2YxMTdXQXFEdmdHTlNYY2cvMGMzbVU3WVA4Q1o1dXNkZnI2ai8xaXFBY2tqWElKM20rRyt5MFdTMW80bkQKYVBZNVVaY0NFVFJiSjNIeEdwQm5OQU9YUnZ3M0g0N0drcmtjL2ZiN1MzRXJheHJDU1RpakFNQ25oc3FQOWFYegpVKzVuNDEvZ0JaZ29WTXZGT05jQ0F3RUFBYU5DTUVBd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0hRWURWUjBPQkJZRUZDSFdxMkthdnpYV0tHK1dHcy9sY0JzcjVxRzBNQTBHQ1NxR1NJYjMKRFFFQkN3VUFBNElCQVFBY21OU2EvTlhSaWFIT1hWVVVMSElQd3BPeFJLd0dZcFFEaVBXd1lIVElIVnRLWkJ2YwpRUWtUYXlxWHBvSjIxb2IxenpINWVrOGZoS1czRWlvUmFpbk9hZmptQTgzOFo4SlBVUER5Y0MwSEovMVBZYTJtClJWZ25sUTFGcks4ZmVWMlQwVGY5dkpuSU4vWmRNYzlXMHRvWC9SRXBNU3AwcGhFb0hkYmh4VUE0OE93b2dGczEKV0xlTFRRckhOVU1SY2pvN20yVVphMHNlOXJSdmRibTlrZ2pQZS9id0k5aHBvM2JaekRVbmUxRGZlS2hQcmdzMAp5TlhiUXZ3bTJ0cTZ6aTYwQW04K01zWU4xMkNsc2JkTTMzdWkzYVRHNkprUzd5WmZtajZ4MjZ4YzY2b1FxTldHCkt2SkpBUWg1RjVmZzdVdDFDQk41RHFsd1ZnMW12eFFiQXVnUgotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
+        },
+        "platformVersion": "eks.12",
+        "tags": {
+            "aws:cloudformation:stack-name": "eksctl-adaptive-training-cluster",
+            "alpha.eksctl.io/cluster-name": "adaptive-training",
+            "aws:cloudformation:stack-id": "arn:aws:cloudformation:ap-northeast-1:505555870255:stack/eksctl-adaptive-training-cluster/2df7ae50-8927-11ed-a7c9-060eacc3b42d",
+            "eksctl.cluster.k8s.io/v1alpha1/cluster-name": "adaptive-training",
+            "alpha.eksctl.io/cluster-oidc-enabled": "false",
+            "aws:cloudformation:logical-id": "ControlPlane",
+            "alpha.eksctl.io/eksctl-version": "0.124.0",
+            "Name": "eksctl-adaptive-training-cluster/ControlPlane"
+        }
+    }
+}

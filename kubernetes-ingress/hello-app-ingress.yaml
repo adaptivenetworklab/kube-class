@@ -1,0 +1,40 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: dev
+  name: test-ingress
+spec:
+  rules:
+    - host: user1.adaptivenetworklab.org
+      http:
+        paths:
+          - path: /v1/halo
+            pathType: Prefix
+            backend:
+              service:
+                name: hello-service
+                port:
+                  number: 80
+          - path: /v2/halo
+            pathType: Prefix
+            backend:
+              service:
+                name: hello-service2
+                port:
+                  number: 80
+          - path: /apple
+            pathType: Exact
+            backend:
+              service:
+                name: apple-service
+                port:
+                  number: 5678
+          - path: /banana
+            pathType: Exact
+            backend:
+              service:
+                name: banana-service
+                port:
+                  number: 5678
+  ingressClassName: nginx
