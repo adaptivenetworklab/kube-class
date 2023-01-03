@@ -131,7 +131,7 @@ kubectl config set-cluster dev-cluster --server=https://127.0.0.1:52807 \
 #see changes 
 nano ~/.kube/new-config
 ```
-
+```
 
 kubectl config set-credentials bob --client-certificate=bob.crt  --client-key=bob.key --embed-certs=true
 
@@ -141,7 +141,7 @@ kubectl config use-context dev
 
 kubectl get pods
 Error from server (Forbidden): pods is forbidden: User "Bob Smith" cannot list resource "pods" in API group "" in the namespace "shopping"
-
+```
 
 ## Give Bob Smith Access
 
