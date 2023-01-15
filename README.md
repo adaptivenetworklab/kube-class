@@ -2,6 +2,8 @@
 
 [![Image](https://github.com/adaptivenetwork-lab/artwork/blob/master/logos/Horizontal_white.png "Course Kubernetes - Adaptive Training" )](https://training.adaptivenetworklab.org/)
 
+https://gitfront.io/r/user-1005608/1qJLdBcJDhyU/kube-class.git
+
 ## Course Modules
 
 | S.No | AWS Service Name |

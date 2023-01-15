@@ -135,7 +135,7 @@ kubectl config set-cluster training-cluster --server=https://k8s.adaptivenetwork
 #see changes 
 nano ~/.kube/user1-config
 ```
-
+```
 
 kubectl config set-credentials user1 --client-certificate=user1.crt  --client-key=user1.key --embed-certs=true
 
@@ -145,7 +145,7 @@ kubectl config use-context training
 
 kubectl get pods
 Error from server (Forbidden): pods is forbidden: User "Bob Smith" cannot list resource "pods" in API group "" in the namespace "shopping"
-
+```
 
 ## Give Bob Smith Access
 
