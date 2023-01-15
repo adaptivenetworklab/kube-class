@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: deployment-demo
+  labels:
+    apps: web-based
+  annotations:
+    type: demo
