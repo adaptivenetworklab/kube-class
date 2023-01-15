@@ -75,6 +75,8 @@ Easy way to create a cert is use `openssl` and the easiest way to get `openssl` 
 ```
 docker run -it -v ${PWD}:/work -w /work -v ${HOME}:/root/ --net host alpine sh
 
+docker exec -it [image id] sh 
+
 apk add openssl
 ```
 
@@ -100,7 +102,7 @@ Use the CA to generate our certificate by signing our CSR. </br>
 We may set an expiry on our certificate as well
 
 ```
-openssl x509 -req -in bob.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out bob.crt -days 1
+
 ```
 
 ## Building a kube config
@@ -118,26 +120,28 @@ We'll be trying to avoid messing with our current kubernetes config. </br>
 So lets tell `kubectl` to look at a new config that does not yet exists 
 
 ```
-export KUBECONFIG=~/.kube/new-config
+mkdir ~/.kube
+touch ~/.kube/user1-config
+export KUBECONFIG=~/.kube/user1-config
 ```
 
 Create a cluster entry which points to the cluster and contains the details of the CA certificate:
 
 ```
-kubectl config set-cluster dev-cluster --server=https://127.0.0.1:52807 \
+kubectl config set-cluster training-cluster --server=https://k8s.adaptivenetworklab.org:6443 \
 --certificate-authority=ca.crt \
 --embed-certs=true
 
 #see changes 
-nano ~/.kube/new-config
+nano ~/.kube/user1-config
 ```
 
 
-kubectl config set-credentials bob --client-certificate=bob.crt  --client-key=bob.key --embed-certs=true
+kubectl config set-credentials user1 --client-certificate=user1.crt  --client-key=user1.key --embed-certs=true
 
-kubectl config set-context dev --cluster=dev-cluster --namespace=shopping --user=bob 
+kubectl config set-context training --cluster=training-cluster --namespace=training --user=user1 
 
-kubectl config use-context dev
+kubectl config use-context training
 
 kubectl get pods
 Error from server (Forbidden): pods is forbidden: User "Bob Smith" cannot list resource "pods" in API group "" in the namespace "shopping"
@@ -214,3 +218,8 @@ response with pod information
 
 ### Referensi 
 https://youtu.be/jvhKOAyD8S8
+
+for n in $(kubectl get ns -o jsonpath='{.items[*].metadata.name}'); do
+  echo -n "$n: "
+  kubectl auth can-i get pods -n "$n" --as=user11
+done
