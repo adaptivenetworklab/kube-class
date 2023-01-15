@@ -13,7 +13,7 @@ Since we have looked at the basics let start with an example deployment. We will
 
 To begin the exercise, create a folder names deployment-demo and cd into that folder. Create all the exercise files in this folder.
 
-```console
+```bash
 mkdir deployment-demo && cd deployment-demo
 ```
 
@@ -21,7 +21,7 @@ mkdir deployment-demo && cd deployment-demo
 
 Let’s create a YAML named namespace.yaml file for creating the namespace.
 
-```console
+```yaml
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -34,13 +34,13 @@ metadata:
 
 Use kubectl command to create the namespace.
 
-```console
+```bash
 kubectl create -f namespace.yaml
 ```
 
 Equivalent kubectl command
 
-```console
+```bash
 kubectl create namespace deployment-demo
 ```
 
@@ -50,7 +50,7 @@ Now let’s assign some resource quota limits to our newly created namespace. Th
 
 Create a file named resourceQuota.yaml. Here is the resource quota YAML contents.
 
-```console
+```yaml
 apiVersion: v1
 kind: ResourceQuota
 metadata:
@@ -66,12 +66,12 @@ spec:
 
 Create the resource quota using the YAML.
 
-```console
+```bash
 kubectl create -f resourceQuota.yaml
 ```
 Now, let’s describe the namespace to check if the resource quota has been applied to the deployment-demo namespace.
 
-```console
+```bash
 kubectl describe ns deployment-demo
 ```
 
@@ -99,7 +99,7 @@ Create a file named deployment.yaml and copy the following YAML to the file.
 
 `Note: This deployment YAML has minimal required information we discussed above. You can have more specification in the deployment YAML based on the requirement.`
 
-```console
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -137,13 +137,13 @@ Under containers, we have defined its resource limits, requests and container po
 
 Create the deployment using kubectl
 
-```console
+```bash
 kubectl create -f deployment.yaml
 ```
 
 Check the deployment
 
-```console
+```bash
 kubectl get deployments -n deployment-demo
 ```
 
@@ -151,7 +151,7 @@ Even though we have added minimal information, after deployment, Kubernetes will
 
 You can check it by describing the deployment in YAML format using the kubectl command.
 
-```console
+```bash
 kubectl get deployment nginx -n deployment-demo  --output yaml
 ```
 
@@ -161,7 +161,7 @@ Now that we have a running deployment, we will create a Kubernetes service of ty
 
 Create a file named service.yaml and copy the following contents.
 
-```console
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -184,19 +184,19 @@ Service is the best example for explaining labels and selectors. In this service
 
 Let’s create the service using kubectl command.
 
-```console
+```bash
 kubectl create -f service.yaml
 ```
 
 You can view the service created using kubectl command.
 
-```console
+```bash
 kubectl get services  -n deployment-demo
 ```
 Now, you will be able to access the nginx service on any one of the kubernetes node IP on port 30500
 
 For example,
 
-```console
+```
 http://35.134.110.153:30500/
 ```
