@@ -68,4 +68,6 @@ Contoh output ketika membuat nginx pod/default
 ```
 
 Referensi:
-https://technekey.com/check-whats-inside-the-etcd-database-in-kubernetes/
+
+1. https://technekey.com/check-whats-inside-the-etcd-database-in-kubernetes/
+3. https://learnk8s.io/etcd-kubernetes
