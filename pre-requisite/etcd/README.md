@@ -66,3 +66,6 @@ Contoh output ketika membuat nginx pod/default
   "Created": false
 }
 ```
+
+Referensi:
+https://technekey.com/check-whats-inside-the-etcd-database-in-kubernetes/
