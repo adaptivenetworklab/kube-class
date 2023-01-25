@@ -1,7 +1,12 @@
 # Local Installation Setup
 
+## WSL 2:
+
+## Docker Runtime
+
 ## KUBECTL
 Kubectl adalah Kubernetes Command Line Interface (CLI) sehingga user dapat mengakses dan mengelola cluster melalui terminal. Berikut cara instalasinya:
+
 Download binary stable release versi terbaru dari kubectl.
 ```
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
@@ -37,7 +42,10 @@ Periksa apabila cluster sudah berjalan dengan baik dan siap digunakan.
 
 
 ## KIND:
-```console
+Kind adalah cluster Kubernetes yang menggunakan container sebagai instance cluster. Bersifat sangat ringan dan digunakan sebagai cluster sekali pakai dalam development process. Berikut cara instalasinya:
+
+**Linux**:
+```bash
 curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.17.0/kind-linux-amd64
 chmod +x ./kind
 sudo mv ./kind /usr/local/bin/kind
