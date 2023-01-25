@@ -1,82 +1,5 @@
 # Introduction to KUBECTL
 
-To start off this tutorial, we will be using [kind](https://kind.sigs.k8s.io/) to create our test cluster. </br>
-You can use `minikube` or any Kubernetes cluster. </br>
-
-Kind is an amazing tool for running test clusters locally as it runs in a container which makes it lightweight and easy to run throw-away clusters for testing purposes. </br>
-
-## Download KUBECTL
-
-We can download `kubectl` from the [Official Docs](https://kubernetes.io/docs/tasks/tools/) </br>
-
-## Create a kubernetes cluster
-
-In this guide we will run two clusters side by side so we can demonstrate cluster access. </br>
-Create two clusters:
-
-```
-kind create cluster --name dev --image kindest/node:v1.23.5
-kind create cluster --name prod --image kindest/node:v1.23.5
-
-```
-
-See cluster up and running:
-
-```
-kubectl get nodes
-NAME                  STATUS   ROLES                  AGE     VERSION
-prod-control-plane   Ready    control-plane,master   2m12s   v1.23.5
-```
-
-## Understanding the KUBECONFIG
-
-Default location of the `kubeconfig` file is in `<users-directory>/.kube/config`
-
-```
-kind: Config
-apiVersion: v1
-clusters:
- - list of clusters (addresses \ endpoints) 
-users:
- - list of users (thing that identifies us when accessing a cluster [certificate]) 
-contexts:
- - list of contexts ( which user and cluster to use when running commands)
-```
-
-Commands to interact with `kubeconfig` are `kubectl config`. </br>
-Key commands are telling `kubectl` which context to use 
-
-```
-kubectl config current-context
-kubectl config get-contexts
-kubectl config use-context <name>
-```
-
-You can also tell your `kubectl` to use different config files. </br>
-This is useful to keep your production config separate from your development ones </br>
-
-Set the `$KUBECONFIG` environment variable to a path:
-```
-#linux
-export KUBECONFIG=<path>
-
-#windows 
-$ENV:KUBECONFIG="C:\Users\aimve\.kube\config"
-```
-
-We can export seperate configs using `kind` </br>
-This is possible with cloud based clusters as well:
-
-```
-kind --name dev export kubeconfig --kubeconfig C:\Users\aimve\.kube\dev-config 
-
-kind --name prod export kubeconfig --kubeconfig C:\Users\aimve\.kube\prod-config 
-
-#switch to prod
-$ENV:KUBECONFIG="C:\Users\aimve\.kube\prod-config"
-kubectl get nodes
-```
-
 ## Working with Kubernetes resources
 
 Now that we have cluster access, next we can read resources from the cluster
@@ -164,7 +87,7 @@ This is a snippet taken from my `How to learn Kubernetes` video:
 
 ```
 kubectl create ns wordpress-site
-kubectl -n wordpress-site apply -f ./kubernetes/tutorials/basics/yaml/
+kubectl -n wordpress-site apply -f ./yaml/
 ```
 
 We can checkout our site with the `port-forward` command:
@@ -177,12 +100,4 @@ mysql       ClusterIP   10.96.146.75   <none>        3306/TCP   17s
 wordpress   ClusterIP   10.96.157.6    <none>        80/TCP     17s
 
 kubectl -n wordpress-site port-forward svc/wordpress 80
-```
-
-## Clean up
-
-```
-kind delete cluster --name dev
-kind delete cluster --name prod
-
 ```
