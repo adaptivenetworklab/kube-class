@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: halo-app
+  namespace: dev
+spec:
+  selector:
+    matchLabels:
+      app: hello2
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: hello2
+    spec:
+    containers:
+      - name: hello2
+        image: "gcr.io/google-samples/hello-app:2.0"

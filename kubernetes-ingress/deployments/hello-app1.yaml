@@ -13,6 +13,6 @@ spec:
       labels:
         app: hello
     spec:
-      containers:
+    containers:
       - name: hello
         image: "gcr.io/google-samples/hello-app:1.0"
