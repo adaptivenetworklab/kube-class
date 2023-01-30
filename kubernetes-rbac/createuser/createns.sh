@@ -1,12 +1,12 @@
 #!/bin/bash
-i=2
+i=1
 while true; do
   if [[ "$i" -gt 10 ]]; then
        exit 1
   fi
   echo i: $i
 
-  kubectl create ns user$i
+  kubectl delete ns user$i
   ((i++))
 
 done
