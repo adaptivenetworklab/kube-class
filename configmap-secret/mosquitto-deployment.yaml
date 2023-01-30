@@ -14,7 +14,7 @@ spec:
       labels:
         app: mosquitto
     spec:
-    containers:
+      containers:
         - name: mosquitto
           image: eclipse-mosquitto:1.6.2
           ports:
@@ -25,7 +25,7 @@ spec:
             - name: mosquitto-secret
               mountPath: /mosquitto/secret  
               readOnly: true
-    volumes:
+      volumes:
         - name: mosquitto-conf
           configMap:
             name: mosquitto-config-file
