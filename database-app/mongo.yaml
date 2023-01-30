@@ -14,7 +14,7 @@ spec:
       labels:
         app: mongodb
     spec:
-      containers:
+    containers:
       - name: mongodb
         image: mongo
         ports:
