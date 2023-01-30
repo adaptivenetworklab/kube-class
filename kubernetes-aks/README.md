@@ -99,6 +99,8 @@ https://docs.docker.com.xy2401.com/ee/ucp/kubernetes/storage/use-azure-disk/
     ```
     Atau akses melalui browser http://20.248.232.119:8081
 
+    Atau dengan ingress (nama service)-c64ac81a.hcp.australiaeast.azmk8s.io
+
 ## Clean up 
 
 ```
