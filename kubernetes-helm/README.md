@@ -8,18 +8,6 @@
 
 ### Steps
 
-# Introduction to Helm
-
-## We need a Kubernetes cluster
-
-Lets create a Kubernetes cluster to play with using [kind](https://kind.sigs.k8s.io/docs/user/quick-start/)
-
-```
-kind create cluster --name helm --image kindest/node:v1.19.1
-```
-
-# Getting Started with Helm
-
 Firstly, I like to do most of my work in containers so everything is reproducible  <br/>
 and my machine remains clean.
 
@@ -27,42 +15,28 @@ and my machine remains clean.
 <br/>
 Run a small `alpine linux` container where we can install and play with `helm`: <br/>
 
-```
+```bash
 docker run -it --rm -v ${HOME}:/root/ -v ${PWD}:/work -w /work --net host alpine sh
 
 # install curl & kubectl
-apk add --no-cache curl nano
+apk add --no-cache curl nano bash
 curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 mv ./kubectl /usr/local/bin/kubectl
 export KUBE_EDITOR="nano"
-
-# test cluster access:
-/work # kubectl get nodes
-NAME                    STATUS   ROLES    AGE   VERSION
-helm-control-plane   Ready    master   26m   v1.19.1
-
 ```
 
+```bash
 ## Install Helm CLI
-
-```
-curl -LO https://get.helm.sh/helm-v3.4.0-linux-amd64.tar.gz
-tar -C /tmp/ -zxvf helm-v3.4.0-linux-amd64.tar.gz
-rm helm-v3.4.0-linux-amd64.tar.gz
-mv /tmp/linux-amd64/helm /usr/local/bin/helm
-chmod +x /usr/local/bin/helm
-
+./get_helm.sh
 ```
 
 ## Create our first Chart
 
-For reference in the rest of the guide, I have left my full templates in: <br/>
-`<GitRepo>/kubernetes/helm/example-app`
+For reference in the rest of the guide, I have left my full templates in: 
 ```
-cd kubernetes/helm
+cd kubernetes-helm/
 
-mkdir temp && cd temp
 helm create example-app
 ```
 
@@ -72,15 +46,6 @@ We can delete unwanted files:
 
 * delete everything under /templates, keeping only `_helpers.tpl`
 * delete `tests` folder under `templates`
-
-## Add Kubernetes files to our new Chart
-
-Copy the following files into our `example-app/templates/` folder
-
-* `<GitRepo>/kubernetes/deployments/deployment.yaml`
-* `<GitRepo>/kubernetes/services/service.yaml`
-* `<GitRepo>/kubernetes/configmaps/configmap.yaml`
-* `<GitRepo>/kubernetes/secrets/secret.yaml`
 
 ## Test the rendering of our template
 
