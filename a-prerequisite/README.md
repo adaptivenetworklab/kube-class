@@ -4,6 +4,8 @@
 
 ## Docker Runtime
 
+Windows: Docker Desktop
+
 ## KUBECTL
 Kubectl adalah Kubernetes Command Line Interface (CLI) sehingga user dapat mengakses dan mengelola cluster melalui terminal. Berikut cara instalasinya:
 
