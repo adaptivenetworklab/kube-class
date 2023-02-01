@@ -1,7 +1,8 @@
 # Adaptive Training Kubernetes Demo
 
-<img src="https://github.com/adaptivenetwork-lab/artwork/blob/master/logos/Horizontal_white.png" width=70% height=70%>
-
+<div align="center">
+    <img src="https://github.com/adaptivenetwork-lab/artwork/blob/master/logos/Horizontal_white.png" width=70% height=70%>
+</div>
 
 ## Course Modules
 
@@ -21,12 +22,20 @@
 | 5.1   | [Terraform](https://github.com/raflihadiana/kube-class/tree/main/kubernetes-aks/terraform) |
 | 6.   | [Microservice in Kubernetes](https://github.com/raflihadiana/kube-class/tree/main/microservice-app) |
 
-
 ## Sample Applications
 - [Boutique Application Microservice](https://github.com/raflihadiana/kube-class/tree/main/microservice-app) 
 - [Mongo Express Database Application](https://github.com/raflihadiana/kube-class/tree/main/database-app)
 - [Grafana - Promotheus Application](https://github.com/raflihadiana/kube-class/tree/main/monitoring-app)
 
+## Bonus Module
+| No. | Module Name |
+| ---- | ---------------- |
+| 1.   | [Autoscaling](https://github.com/raflihadiana/kube-class/tree/main/x-bonus-module/autoscaling) |
+| 2.   | [Cert Manager](https://github.com/raflihadiana/kube-class/tree/main/x-bonus-module/cert-manager) |
+| 3.   | [Istio Service Mesh](https://github.com/raflihadiana/kube-class/tree/main/x-bonus-module/istio-mesh) |
+| 4.   | [Daemonsets](https://github.com/raflihadiana/kube-class/tree/main/x-bonus-module/daemonsets) |
+| 5.   | [Job & CronJob](https://github.com/raflihadiana/kube-class/tree/main/x-bonus-module/job-cronjob) |
+| 6.   | [Web Hooks](https://github.com/raflihadiana/kube-class/tree/main/x-bonus-module/web-hooks) |
 
 ## Are there any course requirements or prerequisites?
 - You need to have basic Docker knowledge to start this course.  
