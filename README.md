@@ -1,7 +1,6 @@
 # Adaptive Training Kubernetes Demo
 
-[![Image](https://github.com/adaptivenetwork-lab/artwork/blob/master/logos/Horizontal_white.png "Course Kubernetes - Adaptive Training" )](https://training.adaptivenetworklab.org/)
-
+<img src="https://github.com/adaptivenetwork-lab/artwork/blob/master/logos/Horizontal_white.png" width=50% height=50%>
 ## Course Modules
 
 | No. | Module Name |
