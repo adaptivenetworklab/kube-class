@@ -33,7 +33,7 @@ Here is a visual overview how this operator works:
 </p>
 
 ### How it's created
-This is an Ansible based operator using [Operator-SDK](https://github.com/operator-framework/operator-sdk) which provides 3 types of Kubernetes operators ... Helm, Ansible, and Go.
+This is an Ansible based operator using [Operator-SDK](https://sdk.operatorframework.io/docs/installation/) which provides 3 types of Kubernetes operators ... Helm, Ansible, and Go.
 
 Here steps how this operator was built (no need to do that to use the operator).
 
