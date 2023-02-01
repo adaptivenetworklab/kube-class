@@ -28,5 +28,5 @@
 
 
 ## Are there any course requirements or prerequisites?
-- You dont need to have basic Docker knowledge to start this course.  
+- You need to have basic Docker knowledge to start this course.  
 - You must have configured a local kubernetes cluster [here](https://github.com/raflihadiana/kube-class/tree/main/a-prerequisite)
