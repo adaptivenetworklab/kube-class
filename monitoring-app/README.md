@@ -108,3 +108,28 @@ kubectl -n default apply -f ./kubernetes/servicemonitors/example-app/
 ```
 
 Now we should see a target in the Prometheus [Targets](http://localhost:9090/targets) page. </br>
+
+## install Prometheus-operator
+
+1. add repos
+
+```bash
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+helm repo update
+```bash
+
+2. install chart
+
+```bash
+helm install prometheus prometheus-community/kube-prometheus-stack
+```
+
+3. install chart with fixed version
+
+```bash
+helm install prometheus prometheus-community/kube-prometheus-stack --version "9.4.1"
+```
+
+Link to chart
+[https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack]
