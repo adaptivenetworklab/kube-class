@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: echo-service-replica-1
+  name: echo-service-replica-1
+  namespace: sleepme
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: echo-service-replica-1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: echo-service-replica-1
+    spec:
+      containers:
+      - image: davidebianchi/echo-service
+        name: echo-service
+        resources: {}
+status: {}
