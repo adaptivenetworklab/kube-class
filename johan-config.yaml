@@ -1,0 +1,24 @@
+apiVersion: v1
+clusters:
+- cluster:
+    insecure-skip-tls-verify: true
+    server: https://k8s.adaptivenetworklab.org/api/endpoints/1/kubernetes
+  name: portainer-cluster-Adaptive-Training
+contexts:
+- context:
+    cluster: portainer-cluster-Adaptive-Training
+    namespace: eric-training
+    user: portainer-sa-user-0332ff83-be60-48eb-a30e-ea86bb000a4e-7
+  name: johan-eric-training
+- context:
+    cluster: portainer-cluster-Adaptive-Training
+    namespace: training
+    user: portainer-sa-user-0332ff83-be60-48eb-a30e-ea86bb000a4e-7
+  name: portainer-ctx-Adaptive-Training
+current-context: johan-eric-training
+kind: Config
+preferences: {}
+users:
+- name: portainer-sa-user-0332ff83-be60-48eb-a30e-ea86bb000a4e-7
+  user:
+    token: REDACTED
