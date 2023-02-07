@@ -1,5 +1,3 @@
-# Role Based Access Control (RBAC)
-
 # Introduction to Kubernetes: RBAC
 
 ## Create Kubernetes cluster
@@ -75,8 +73,6 @@ Easy way to create a cert is use `openssl` and the easiest way to get `openssl` 
 ```
 docker run -it -v ${PWD}:/work -w /work -v ${HOME}:/root/ --net host alpine sh
 
-docker exec -it [image id] sh 
-
 apk add openssl
 ```
 
@@ -102,7 +98,7 @@ Use the CA to generate our certificate by signing our CSR. </br>
 We may set an expiry on our certificate as well
 
 ```
-
+openssl x509 -req -in bob.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out bob.crt -days 1
 ```
 
 ## Building a kube config
@@ -120,158 +116,30 @@ We'll be trying to avoid messing with our current kubernetes config. </br>
 So lets tell `kubectl` to look at a new config that does not yet exists 
 
 ```
-mkdir ~/.kube
-touch ~/.kube/user1-config
-export KUBECONFIG=~/.kube/user1-config
+export KUBECONFIG=~/.kube/new-config
 ```
 
 Create a cluster entry which points to the cluster and contains the details of the CA certificate:
 
 ```
-kubectl config set-cluster training-cluster --server=https://k8s.adaptivenetworklab.org:6443 \
+kubectl config set-cluster dev-cluster --server=https://127.0.0.1:52807 \
 --certificate-authority=ca.crt \
 --embed-certs=true
 
 #see changes 
-nano ~/.kube/user1-config
-```
-
-# How to Generate Kubeconfig File?
-
-A kubeconfig needs the following important details.
-
-    1. Cluster endpoint (IP or DNS name of the cluster)
-    2. Cluster CA Certificate
-    3. Cluster name
-    4. Service account user name
-    5. Service account token
-
-`Note: To generate a Kubeconfig file, you need to have admin permissions in the cluster to create service accounts and roles.`
-
-For this demo, I am creating a service account with `clusterRole` that has limited access to the cluster-wide resources. You can also create a normal role and `Rolebinding` that limits the user access to a specific namespace.
-
-## Step 1: Create a Service Account
-
-The service account name will be the user name in the Kubeconfig. Here I am creating the service account in the kube-system as I am creating a clusterRole. If you want to create a config to give namespace level limited access, create the service account in the required namespace.
-
-```console
-kubectl -n kube-system create serviceaccount devops-cluster-admin
-```
-
-## Step 2: Create a ClusterRole
-
-Let’s create a clusterRole with limited privileges to cluster objects. You can add the required object access as per your requirements. Refer to the service account with clusterRole access blog for more information.
-
-If you want to create a namespace scoped role, refer to creating service account with role.
-
-Execute the following command to create the clusterRole.
-```console
-cat << EOF | kubectl apply -f -
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: devops-cluster-admin
-rules:
-- apiGroups: [""]
-  resources:
-  - nodes
-  - nodes/proxy
-  - services
-  - endpoints
-  - pods
-  verbs: ["get", "list", "watch"]
-- apiGroups:
-  - extensions
-  resources:
-  - ingresses
-  verbs: ["get", "list", "watch"]
-EOF
-```
-
-## Step 3: Create ClusterRoleBinding
-
-The following YAML is a ClusterRoleBinding that binds the devops-cluster-admin service account with the devops-cluster-admin clusterRole.
-
-```console
-cat << EOF | kubectl apply -f -
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: devops-cluster-admin
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: devops-cluster-admin
-subjects:
-- kind: ServiceAccount
-  name: devops-cluster-admin
-  namespace: kube-system
-EOF
-```
-
-## Step 4: Get all Cluster Details & Secrets
-
-We will retrieve all the required kubeconfig details and save them in variables. Then, finally, we will substitute it directly to the Kubeconfig YAML.
-
-```console
-export SA_TOKEN_NAME=$(kubectl -n kube-system get serviceaccount devops-cluster-admin -o=jsonpath='{.secrets[0].name}')
-
-export SA_SECRET_TOKEN=$(kubectl -n kube-system get secret/${SA_TOKEN_NAME} -o=go-template='{{.data.token}}' | base64 --decode)
-
-export CLUSTER_NAME=$(kubectl config current-context)
-
-export CURRENT_CLUSTER=$(kubectl config view --raw -o=go-template='{{range .contexts}}{{if eq .name "'''${CLUSTER_NAME}'''"}}{{ index .context "cluster" }}{{end}}{{end}}')
-
-export CLUSTER_CA_CERT=$(kubectl config view --raw -o=go-template='{{range .clusters}}{{if eq .name "'''${CURRENT_CLUSTER}'''"}}"{{with index .cluster "certificate-authority-data" }}{{.}}{{end}}"{{ end }}{{ end }}')
-
-export CLUSTER_ENDPOINT=$(kubectl config view --raw -o=go-template='{{range .clusters}}{{if eq .name "'''${CURRENT_CLUSTER}'''"}}{{ .cluster.server }}{{end}}{{ end }}')
-```
-
-## Step 5: Generate the Kubeconfig With the variables.
-
-If you execute the following YAML, all the variables get substituted and a config named devops-cluster-admin-config gets generated.
-
-```console
-cat << EOF > devops-cluster-admin-config
-apiVersion: v1
-kind: Config
-current-context: ${CLUSTER_NAME}
-contexts:
-- name: ${CLUSTER_NAME}
-  context:
-    cluster: ${CLUSTER_NAME}
-    user: devops-cluster-admin
-clusters:
-- name: ${CLUSTER_NAME}
-  cluster:
-    certificate-authority-data: ${CLUSTER_CA_CERT}
-    server: ${CLUSTER_ENDPOINT}
-users:
-- name: devops-cluster-admin
-  user:
-    token: ${SA_SECRET_TOKEN}
-EOF
-```
-
-## Step 5: validate the generated Kubeconfig
-
-To validate the Kubeconfig, execute it with the kubectl command to see if the cluster is getting authenticated.
-```console
-kubectl get nodes --kubeconfig=devops-cluster-admin-config 
+nano ~/.kube/new-config
 ```
 
 
-```
+kubectl config set-credentials bob --client-certificate=bob.crt  --client-key=bob.key --embed-certs=true
 
-kubectl config set-credentials user1 --client-certificate=user1.crt  --client-key=user1.key --embed-certs=true
+kubectl config set-context dev --cluster=dev-cluster --namespace=shopping --user=bob 
 
-kubectl config set-context training --cluster=training-cluster --namespace=training --user=user1 
-
-kubectl config use-context training
+kubectl config use-context dev
 
 kubectl get pods
 Error from server (Forbidden): pods is forbidden: User "Bob Smith" cannot list resource "pods" in API group "" in the namespace "shopping"
-```
+
 
 ## Give Bob Smith Access
 
@@ -340,12 +208,3 @@ kubectl -n shopping apply -f serviceaccount-rolebinding.yaml
 
 If we try run `curl` command again we can see now we are able to get a json 
 response with pod information
-
-
-### Referensi 
-https://youtu.be/jvhKOAyD8S8
-
-for n in $(kubectl get ns -o jsonpath='{.items[*].metadata.name}'); do
-  echo -n "$n: "
-  kubectl auth can-i get pods -n "$n" --as=user11
-done

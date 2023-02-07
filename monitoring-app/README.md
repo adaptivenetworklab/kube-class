@@ -115,14 +115,17 @@ Now we should see a target in the Prometheus [Targets](http://localhost:9090/tar
 
 ```bash
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
 ```bash
 
 2. install chart
 
 ```bash
-helm install prometheus prometheus-community/kube-prometheus-stack
+helm uninstall prometheus-training prometheus-community/kube-prometheus-stack
+helm uninstall metrics-training prometheus-community/kube-state-metrics
+helm uninstall exporte-training prometheus-community/prometheus-node-exporte
+helm uninstall grafana-training grafana/grafana
 ```
 
 3. install chart with fixed version
