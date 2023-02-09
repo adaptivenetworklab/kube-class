@@ -38,7 +38,8 @@ Lets create one! </br>
 
 ```
 
-SERVICE_PRINCIPAL_JSON=$(az ad sp create-for-rbac --skip-assignment --name aks-getting-started-sp -o json)
+SERVICE_PRINCIPAL_JSON=$(az ad sp create-for-rbac --skip-assignment --name "training-aks" -o json)
+echo $SERVICE_PRINCIPAL_JSON
 
 # Keep the `appId` and `password` for later use!
 
@@ -46,7 +47,7 @@ SERVICE_PRINCIPAL=$(echo $SERVICE_PRINCIPAL_JSON | jq -r '.appId')
 SERVICE_PRINCIPAL_SECRET=$(echo $SERVICE_PRINCIPAL_JSON | jq -r '.password')
 
 #note: reset the credential if you have any sinlge or double quote on password
-az ad sp credential reset --name "aks-getting-started-sp"
+az ad sp credential reset --name "training-aks-sp"
 
 # Grant contributor role over the subscription to our service principal
 
@@ -70,11 +71,17 @@ chmod +x terraform && mv terraform /usr/local/bin/
 cd kubernetes/cloud/azure/terraform/
 
 ```
+# Teraform Init
+
+```
+terraform init
+```
+
 
 # Generate SSH key
 
 ```
-ssh-keygen -t rsa -b 4096 -N "VeryStrongSecret123!" -C "your_email@example.com" -q -f  ~/.ssh/id_rsa
+ssh-keygen -t rsa -b 4096 -N "AdaptiveTraining123*" -C "arigints@telkomuniversity.ac.id" -q -f  ~/.ssh/id_rsa
 SSH_KEY=$(cat ~/.ssh/id_rsa.pub)
 ```
 
@@ -102,7 +109,7 @@ terraform apply -var serviceprinciple_id=$SERVICE_PRINCIPAL \
 
 ```
 # grab our AKS config
-az aks get-credentials -n aks-getting-started -g aks-getting-started
+az aks get-credentials -n training-aks -g training-aks
 
 # Get kubectl
 

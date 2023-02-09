@@ -1,0 +1,24 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: crb-node-watcher
+subjects:
+- kind: ServiceAccount
+  name: portainer-sa-user-0332ff83-be60-48eb-a30e-ea86bb000a4e-9
+  namespace: portainer
+- kind: ServiceAccount
+  name: portainer-sa-user-0332ff83-be60-48eb-a30e-ea86bb000a4e-5
+  namespace: portainer
+- kind: ServiceAccount
+  name: portainer-sa-user-0332ff83-be60-48eb-a30e-ea86bb000a4e-7
+  namespace: portainer
+- kind: ServiceAccount
+  name: portainer-sa-user-0332ff83-be60-48eb-a30e-ea86bb000a4e-6
+  namespace: portainer
+- kind: ServiceAccount
+  name: portainer-sa-user-0332ff83-be60-48eb-a30e-ea86bb000a4e-4
+  namespace: portainer
+roleRef:
+  kind: ClusterRole
+  name: node-watcher
+  apiGroup: rbac.authorization.k8s.io
