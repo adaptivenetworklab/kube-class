@@ -98,7 +98,7 @@ Use the CA to generate our certificate by signing our CSR. </br>
 We may set an expiry on our certificate as well
 
 ```
-openssl x509 -req -in bob.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out bob.crt -days 1
+openssl x509 -req -in bob.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out bob.crt -days 30
 ```
 
 ## Building a kube config
@@ -122,7 +122,7 @@ export KUBECONFIG=~/.kube/new-config
 Create a cluster entry which points to the cluster and contains the details of the CA certificate:
 
 ```
-kubectl config set-cluster dev-cluster --server=https://127.0.0.1:52807 \
+kubectl config set-cluster dev-cluster --server=https://127.0.0.1:37747 \
 --certificate-authority=ca.crt \
 --embed-certs=true
 

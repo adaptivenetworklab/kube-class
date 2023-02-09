@@ -26,8 +26,8 @@ monitoring-control-plane   Ready    control-plane,master   2m12s   v1.23.5
 Installation: 
 
 ```
-kubectl create -f ./monitoring-app/manifests/setup/
-kubectl create -f ./monitoring-app/manifests/
+kubectl create -f ./monitoring/prometheus/kubernetes/1.23/manifests/setup/
+kubectl create -f ./monitoring/prometheus/kubernetes/1.23/manifests/
 ```
 
 Check the install:
@@ -75,7 +75,7 @@ Then access Prometheus on [localhost:9090](http://localhost:9090).
 
 
 ```
-kubectl apply -n monitoring -f ./monitoring-app/servicemonitors/prometheus.yaml
+kubectl apply -n monitoring -f ./kubernetes/servicemonitors/prometheus.yaml
 
 ```
 
@@ -94,7 +94,7 @@ kubectl -n monitoring port-forward prometheus-applications-0 9090
 ## Deploy a service monitor for example app
 
 ```
-kubectl -n default apply -f ./monitoring-app/servicemonitors/servicemonitor.yaml
+kubectl -n default apply -f ./kubernetes/servicemonitors/servicemonitor.yaml
 ```
 
 After applying the service monitor, if Prometheus is correctly selecting it, we should see the item appear under the [Service Discovery](http://localhost:9090/service-discovery) page in Prometheus. </br>
@@ -104,35 +104,7 @@ If it does not appear, that means your Prometheus instance is not selecting the 
 ## Deploy our example app
 
 ```
-kubectl -n default apply -f ./monitoring-app/servicemonitors/example-app/
+kubectl -n default apply -f ./kubernetes/servicemonitors/example-app/
 ```
 
 Now we should see a target in the Prometheus [Targets](http://localhost:9090/targets) page. </br>
-
-## install Prometheus-operator
-
-1. add repos
-
-```bash
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-helm repo add grafana https://grafana.github.io/helm-charts
-helm repo update
-```bash
-
-2. install chart
-
-```bash
-helm uninstall prometheus-training prometheus-community/kube-prometheus-stack
-helm uninstall metrics-training prometheus-community/kube-state-metrics
-helm uninstall exporte-training prometheus-community/prometheus-node-exporte
-helm uninstall grafana-training grafana/grafana
-```
-
-3. install chart with fixed version
-
-```bash
-helm install prometheus prometheus-community/kube-prometheus-stack --version "9.4.1"
-```
-
-Link to chart
-[https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack]
