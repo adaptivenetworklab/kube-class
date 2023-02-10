@@ -16,7 +16,6 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  namespace: dev
   name: apple-service
 spec:
   selector:
