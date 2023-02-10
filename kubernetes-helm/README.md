@@ -19,7 +19,9 @@ Run a small `alpine linux` container where we can install and play with `helm`: 
 docker run -it --rm -v ${HOME}:/root/ -v ${PWD}:/work -w /work --net host alpine sh
 
 # install curl & kubectl
-apk add --no-cache curl nano bash
+apk add --no-cache curl nano 
+apk add openssl
+apk add bash
 curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 mv ./kubectl /usr/local/bin/kubectl
@@ -28,6 +30,8 @@ export KUBE_EDITOR="nano"
 
 ```bash
 ## Install Helm CLI
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
 ./get_helm.sh
 ```
 

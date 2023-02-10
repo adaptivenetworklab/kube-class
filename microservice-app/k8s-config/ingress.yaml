@@ -4,7 +4,7 @@ metadata:
   name: ingress-boutique
 spec:
   rules:
-    - host: user1.adaptivenetworklab.org
+    - host: user7.adaptivenetworklab.org
       http:
         paths:
           - path: /

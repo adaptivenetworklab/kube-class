@@ -12,6 +12,7 @@ docker run -it --rm -v ${PWD}:/work -w /work --entrypoint /bin/sh mcr.microsoft.
 ## Login to Azure
 Connect sesuai dengan subsription di Portal Azure
 ```
+az login
 az account set --subscription 7ca868c2-b2bd-468c-abba-c79c963bb881
 az aks get-credentials --resource-group training-aks --name training
 ```

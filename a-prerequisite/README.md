@@ -8,7 +8,7 @@ Windows: Docker Desktop
 
 ## KUBECTL
 Kubectl adalah Kubernetes Command Line Interface (CLI) sehingga user dapat mengakses dan mengelola cluster melalui terminal. Berikut cara instalasinya:
-
+# Instalasi Windows
 Download binary stable release versi terbaru dari kubectl.
 ```
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
