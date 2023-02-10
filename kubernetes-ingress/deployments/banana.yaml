@@ -2,7 +2,6 @@ kind: Pod
 apiVersion: v1
 metadata:
   name: banana-app
-  namespace: dev
   labels:
     app: banana
 spec:

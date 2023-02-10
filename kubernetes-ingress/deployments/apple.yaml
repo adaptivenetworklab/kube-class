@@ -1,7 +1,6 @@
 kind: Pod
 apiVersion: v1
 metadata:
-  namespace: dev
   name: apple-app
   labels:
     app: apple

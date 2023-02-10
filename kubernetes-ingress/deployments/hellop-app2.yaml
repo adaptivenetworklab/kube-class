@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: halo-app
-  namespace: dev
 spec:
   selector:
     matchLabels:
