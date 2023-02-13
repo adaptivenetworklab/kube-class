@@ -8,7 +8,6 @@ rules:
   resources:
   - '*'
   verbs:
-  - create
   - get
   - list
   - patch
