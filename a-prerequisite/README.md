@@ -54,3 +54,8 @@ sudo mv ./kind /usr/local/bin/kind
 curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.17.0/kind-windows-amd64
 Move-Item .\kind-windows-amd64.exe c:\Users\Users\kind.exe
 ```
+
+```
+cd ./a-prerequisite
+kind create cluster --name adaptive-training --image kindest/node:v1.20.2 --config kind.yaml
+```
