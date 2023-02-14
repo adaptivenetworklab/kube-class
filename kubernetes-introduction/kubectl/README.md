@@ -14,11 +14,11 @@ Menggunakan perintah Imperative kubectl dapat membantu dalam membuat object deng
 • Contoh membuat NGINX pod
 ```kubectl run nginx --image=nginx```  
 
-• Generate POD Manifest YAML file dengan satu command
-```kubectl run nginx --image=nginx --dry-run=client -o yaml```
-
 • Membuat deployment
 ```kubectl create deployment --image=nginx nginx```
+
+• Generate POD Manifest YAML file dengan satu command
+```kubectl run nginx --image=nginx --dry-run=client -o yaml```
 
 • Generate Deployment Manifest YAML file dengan satu command:
 
