@@ -12,7 +12,6 @@ We'll need the Azure CLI to gather information so we can build our Terraform fil
 ```
 # Run Azure CLI
 docker run -it --rm -v ${PWD}:/work -w /work --entrypoint /bin/sh mcr.microsoft.com/azure-cli:2.30.0
-
 ```
 
 ## Login to Azure
