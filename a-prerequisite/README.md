@@ -6,8 +6,21 @@ Berikut cara melakukan instalasi [WSL2](https://learn.microsoft.com/en-us/window
 
 ## Docker Desktop
 
-Berikut cara melakukan instalasi [Docker Desktop](https://youtu.be/Y_XPQ-7hjnY).
+Berikut cara melakukan instalasi windows [Docker Desktop](https://youtu.be/Y_XPQ-7hjnY).
 
+**Linux**:
+```
+curl -fsSL https://get.docker.com -o get-docker.sh
+sh get-docker.sh
+```
+Aktivasi Docker di WSL:
+```
+sudo service docker start
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+docker run hello-world
+```
 
 ## KUBECTL
 Kubectl adalah Kubernetes Command Line Interface (CLI) sehingga user dapat mengakses dan mengelola cluster melalui terminal. Berikut cara instalasinya:
@@ -34,4 +47,10 @@ Kind adalah cluster Kubernetes yang menggunakan container sebagai instance clust
 curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.17.0/kind-linux-amd64
 chmod +x ./kind
 sudo mv ./kind /usr/local/bin/kind
+```
+
+**Windows**:
+```
+curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.17.0/kind-windows-amd64
+Move-Item .\kind-windows-amd64.exe c:\Users\Users\kind.exe
 ```
