@@ -52,5 +52,5 @@ sudo mv ./kind /usr/local/bin/kind
 **Windows**:
 ```
 curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.17.0/kind-windows-amd64
-Move-Item .\kind-windows-amd64.exe c:\Users\\kind.exe
+Move-Item .\kind-windows-amd64.exe c:\Users\Users\kind.exe
 ```
