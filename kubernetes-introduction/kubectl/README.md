@@ -46,7 +46,7 @@ kubectl -n example-apps get pods
 
 kubectl -n example-apps create service clusterip webserver --tcp 80:80
 kubectl -n example-apps get service
-kubectl -n example-apps port-forward svc/webserver 80
+kubectl -n example-apps port-forward svc/webserver 8888:80
 # we can access http://localhost/
 
 kubectl -n example-apps create configmap webserver-config --from-file config.json=./kubernetes/kubectl/config.json
