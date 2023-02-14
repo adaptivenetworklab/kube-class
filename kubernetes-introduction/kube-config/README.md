@@ -1,27 +1,5 @@
 # Kubeconfig File
 
-To start off this tutorial, we will be using [kind](https://kind.sigs.k8s.io/) to create our test cluster. </br>
-You can use `minikube` or any Kubernetes cluster. </br>
-
-## Create a kubernetes cluster
-
-In this guide we will run two clusters side by side so we can demonstrate cluster access. </br>
-Create two clusters:
-
-```
-kind create cluster --name dev --image kindest/node:v1.23.5
-kind create cluster --name prod --image kindest/node:v1.23.5
-
-```
-
-See cluster up and running:
-
-```
-kubectl get nodes
-NAME                  STATUS   ROLES                  AGE     VERSION
-prod-control-plane   Ready    control-plane,master   2m12s   v1.23.5
-```
-
 ## Understanding the KUBECONFIG
 
 Commands to interact with `kubeconfig` are `kubectl config`. </br>
