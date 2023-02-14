@@ -1,12 +1,5 @@
 # Introduction to Kubernetes: RBAC
 
-## Create Kubernetes cluster
-
-
-```
-kind create cluster --name rbac --image kindest/node:v1.20.2
-```
-
 ## Kubernetes CA Certificate
 
 Kubernetes does not have a concept of users, instead it relies on certificates and would only 
