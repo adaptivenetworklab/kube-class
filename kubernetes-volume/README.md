@@ -13,7 +13,7 @@ cd ./kubernetes-volume/
 kubectl create ns postgres
 kubectl apply -n postgres -f ./postgres-no-pv.yaml
 kubectl -n postgres get pods 
-kubectl -n postgres exec -it postgres-0 bash
+kubectl -n postgres exec -it postgres-0 -- bash
 
 # login to postgres
 psql --username=admin postgresdb
@@ -47,10 +47,13 @@ kubectl apply -n postgres -f ./postgres-no-pv.yaml
 kubectl apply -f persistentvolume.yaml
 kubectl apply -n postgres -f persistentvolumeclaim.yaml
 
+kubectl delete -f persistentvolume.yaml
+kubectl delete -n postgres -f persistentvolumeclaim.yaml
+
 kubectl apply -n postgres -f postgres-with-pv.yaml
 
 kubectl -n postgres get pods 
-kubectl -n postgres exec -it postgres-0 bash
+kubectl -n postgres exec -it postgres-0 -- bash
 
 # login to postgres
 psql --username=admin postgresdb
@@ -72,7 +75,7 @@ CREATE TABLE COMPANY(
 
 # redeploy (data hilang)
 
-kubectl delete po -n postgres postgres-0
+kubectl delete -n postgres -f ./postgres-with-pv.yaml
 kubectl apply -n postgres -f ./postgres-with-pv.yaml
 
 kubectl -n postgres get pods
