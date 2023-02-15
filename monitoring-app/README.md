@@ -1,26 +1,5 @@
 # Introduction to Service Monitors
 
-In order to understand service monitors, we will need to understand how to monitor 
-kubernetes environment. </br>
-You will need a base understanding of Kubernetes and have a basic understanding of the `kube-prometheus` monitoring stack. </br>
-
-Checkout the video [How to monitor Kubernetes in 2022](https://youtu.be/YDtuwlNTzRc): 
-
-<a href="https://youtu.be/YDtuwlNTzRc" title="Monitoring Kubernetes"><img src="https://i.ytimg.com/vi/YDtuwlNTzRc/hqdefault.jpg" width="50%" alt="Monitoring Kubernetes" /></a>
-
-
-## Create a kubernetes cluster
-
-```
-# create cluster
-kind create cluster --name monitoring --image kindest/node:v1.23.5
-
-# see cluster up and running
-kubectl get nodes
-NAME                  STATUS   ROLES                  AGE     VERSION
-monitoring-control-plane   Ready    control-plane,master   2m12s   v1.23.5
-```
-
 ## Deploy kube-prometheus
 
 Installation: 
@@ -28,6 +7,13 @@ Installation:
 ```
 kubectl create -f ./monitoring-app/manifests/setup/
 kubectl create -f ./monitoring-app/manifests/
+```
+
+Deletion: 
+
+```
+kubectl delete -f ./monitoring-app/manifests/setup/
+kubectl delete -f ./monitoring-app/manifests/
 ```
 
 Check the install:
@@ -122,16 +108,19 @@ helm repo update
 2. install chart
 
 ```bash
+helm install prometheus-training prometheus-community/kube-prometheus-stack
+helm install metrics-training prometheus-community/kube-state-metrics
+helm install exporte-training prometheus-community/prometheus-node-exporte
+helm install grafana-training grafana/grafana
+```
+
+3. Uninstall chart 
+
+```bash
 helm uninstall prometheus-training prometheus-community/kube-prometheus-stack
 helm uninstall metrics-training prometheus-community/kube-state-metrics
 helm uninstall exporte-training prometheus-community/prometheus-node-exporte
 helm uninstall grafana-training grafana/grafana
-```
-
-3. install chart with fixed version
-
-```bash
-helm install prometheus prometheus-community/kube-prometheus-stack --version "9.4.1"
 ```
 
 Link to chart
