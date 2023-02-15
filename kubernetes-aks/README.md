@@ -102,6 +102,12 @@ https://docs.docker.com.xy2401.com/ee/ucp/kubernetes/storage/use-azure-disk/
 
     Atau dengan ingress (nama service)-c64ac81a.hcp.australiaeast.azmk8s.io
 
+## Percobaan Aplikasi Kedua
+
+```
+kubectl apply -f calculator.yaml -n <namakalian>-training
+```
+
 ## Clean up 
 
 ```
