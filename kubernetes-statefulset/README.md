@@ -3,35 +3,29 @@
 
 ## Steps
 
-1. Membuat Namespase Example
-
-```
-kubectl create ns example
-```
-
-2. Check the storageclass for host path provisioner
+1. Check the storageclass for host path provisioner
 
 ```
 kubectl get storageclass
 ```
 
-3. Deploy our statefulset
+2. Deploy our statefulset
 
 ```
-kubectl -n example apply -f .\kubernetes\statefulsets\statefulset.yaml
+kubectl apply -f statefulset.yaml
 ```
 
-4. Enable Redis Cluster
+3. Enable Redis Cluster
 
 ```
-$IPs = $(kubectl -n example get pods -l app=redis-cluster -o jsonpath='{range.items[*]}{.status.podIP}:6379 ')
-kubectl -n example exec -it redis-cluster-0  -- /bin/sh -c "redis-cli -h "$REDIS_PORT_6379_TCP_ADDR" -p "$REDIS_PORT_6379_TCP_PORT" --cluster create ${IPs}"
-kubectl -n example exec -it redis-cluster-0  -- /bin/sh -c "redis-cli -h 127.0.0.1 -p 6379 cluster info"
+kubectl get pods -l app=redis-cluster -o jsonpath='{range.items[*]}{.status.podIP}:6379'
+kubectl exec -it redis-cluster-0  -- /bin/sh -c "redis-cli -h 127.0.0.1 -p 6379 --cluster create 10.244.1.6:6379 10.244.3.6:6379 10.244.2.8:6379"
+kubectl exec -it redis-cluster-0  -- /bin/sh -c "redis-cli -h 127.0.0.1 -p 6379 cluster info"
 ```
 
 5. Deploy sample application
 ```
-kubectl -n example apply -f .\kubernetes\statefulsets\example-app.yaml
+kubectl apply -f example-app.yaml
 ```
 
 6. Akses Aplikasi di localhost:30002
