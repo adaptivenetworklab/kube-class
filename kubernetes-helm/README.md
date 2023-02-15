@@ -41,7 +41,7 @@ For reference in the rest of the guide, I have left my full templates in:
 ```
 cd kubernetes-helm/
 
-helm create example-app
+helm create training-app
 ```
 
 ## Cleanup the template 
@@ -51,16 +51,20 @@ We can delete unwanted files:
 * delete everything under /templates, keeping only `_helpers.tpl`
 * delete `tests` folder under `templates`
 
+## Masukan aplikasi ke dalam template
+
+Pindahkan yang ada di app ke dalam template folder
+
 ## Test the rendering of our template
 
 ```
-helm template example-app example-app
+helm template training-app training-app
 ```
 
 ## Install our app using our Chart
 
 ```
-helm install example-app example-app
+helm install training-app training-app
 
 # list our releases
 
@@ -92,7 +96,7 @@ image: {{ .Values.deployment.image }}:{{ .Values.deployment.tag }}
 
 # upgrade our release
 
-helm upgrade example-app example-app --values ./example-app/values.yaml
+helm upgrade training-app training-app --values ./training-app/values.yaml
 
 # see revision increased
 
@@ -117,29 +121,11 @@ Rename `values.yaml` to `example-app.values.yaml`
 Create our second app values file `example-app-02.values.yaml`
 
 ```
-helm install example-app-02 example-app --values ./example-app/example-app-02.values.yaml
+helm upgrade training-app training-app --values ./training-app/values.yaml
+helm install training-app-2 training-app --values ./training-app/values2.yaml
+helm list
 ```
 
-## Trigger deployment change when config changes
-
-By default, a deployment will not rollout new pods when a configmap changes. <br/>
-Some application read configuration at start up and deployment may need to roll out </br>
-new pods when a configmap changes. Let's do that:
-
-```
-# deployment.yaml
-
-kind: Deployment
-spec:
-  template:
-    metadata:
-      annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
-
-# rollout the change
-
-helm upgrade example-app example-app --values ./example-app/example-app-01.values.yaml
-```
 
 ## If\Else and Default values
 
