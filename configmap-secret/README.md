@@ -32,8 +32,8 @@ Gunakan cluster local untuk melakukan demo ini.
     Deploy terlebih dahulu configmap dan secret nya
 
     ```bash
-    kubectl apply -f mosquitto-cm-yaml
-    kubectl apply -f mosquitto-secret-yaml
+    kubectl apply -f mosquitto-cm.yaml
+    kubectl apply -f mosquitto-secret.yaml
     ```
 
     Tambahkan konfigurasi volume agar di mount ke pod
