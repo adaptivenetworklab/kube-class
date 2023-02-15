@@ -5,6 +5,10 @@
 Installation: 
 
 ```
+kubectl create ns monitoring
+```
+
+```
 kubectl create -f ./monitoring-app/manifests/setup/
 kubectl create -f ./monitoring-app/manifests/
 ```
