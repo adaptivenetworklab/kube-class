@@ -1,0 +1,10 @@
+apiVersion: operators.coreos.com/v1alpha1 
+kind: Subscription 
+metadata: 
+  name: my-kube-green 
+  namespace: operators 
+spec: 
+  channel: alpha 
+  name: kube-green 
+  source: operatorhubio-catalog 
+  sourceNamespace: olm

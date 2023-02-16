@@ -1,5 +1,7 @@
 # Introduction to Kubernetes: RBAC
 
+## Use Portainer
+
 ## Kubernetes CA Certificate
 
 Kubernetes does not have a concept of users, instead it relies on certificates and would only 
@@ -13,7 +15,7 @@ If you are using `minikube` you may find it under `~/.minikube/.`
 Access the master node:
 
 ```
-docker exec -it rbac-control-plane bash
+docker exec -it adaptive-training-control-plane bash
 
 ls -l /etc/kubernetes/pki
 total 60
@@ -38,10 +40,11 @@ exit the container
 
 Copy the certs out of our master node:
 
+
 ```
-cd kubernetes/rbac
-docker cp rbac-control-plane:/etc/kubernetes/pki/ca.crt ca.crt
-docker cp rbac-control-plane:/etc/kubernetes/pki/ca.key ca.key
+cd kubernetes-rbac/kind
+docker cp adaptive-training-control-plane:/etc/kubernetes/pki/ca.crt ca.crt
+docker cp adaptive-training-control-plane:/etc/kubernetes/pki/ca.key ca.key
 ```
 
 # Kubernetes Users
@@ -69,29 +72,29 @@ docker run -it -v ${PWD}:/work -w /work -v ${HOME}:/root/ --net host alpine sh
 apk add openssl
 ```
 
-Let's create a certificate for Bob Smith:
+Let's create a certificate for asep:
 
 
 ```
 #start with a private key
-openssl genrsa -out bob.key 2048
+openssl genrsa -out asep.key 2048
 
 ```
 
 Now we have a key, we need a certificate signing request (CSR). </br>
-We also need to specify the groups that Bob belongs to. </br>
-Let's pretend Bob is part of the `Shopping` team and will be developing 
+We also need to specify the groups that asep belongs to. </br>
+Let's pretend asep is part of the `Shopping` team and will be developing 
 applications for the `Shopping` 
 
 ```
-openssl req -new -key bob.key -out bob.csr -subj "/CN=Bob Smith/O=Shopping"
+openssl req -new -key asep.key -out asep.csr -subj "/CN=asep/O=Shopping"
 ```
 
 Use the CA to generate our certificate by signing our CSR. </br>
 We may set an expiry on our certificate as well
 
 ```
-openssl x509 -req -in bob.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out bob.crt -days 30
+openssl x509 -req -in asep.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out asep.crt -days 30
 ```
 
 ## Building a kube config
@@ -109,13 +112,13 @@ We'll be trying to avoid messing with our current kubernetes config. </br>
 So lets tell `kubectl` to look at a new config that does not yet exists 
 
 ```
-export KUBECONFIG=~/.kube/new-config
+export KUBECONFIG=~/.kube/asep-config
 ```
 
 Create a cluster entry which points to the cluster and contains the details of the CA certificate:
 
 ```
-kubectl config set-cluster dev-cluster --server=https://127.0.0.1:37747 \
+kubectl config set-cluster kind-adaptive-training --server=https://127.0.0.1:40729 \
 --certificate-authority=ca.crt \
 --embed-certs=true
 
@@ -124,27 +127,28 @@ nano ~/.kube/new-config
 ```
 
 
-kubectl config set-credentials bob --client-certificate=bob.crt  --client-key=bob.key --embed-certs=true
+kubectl config set-credentials asep --client-certificate=asep.crt  --client-key=asep.key --embed-certs=true
 
-kubectl config set-context dev --cluster=dev-cluster --namespace=shopping --user=bob 
+kubectl config set-context training --cluster=kind-adaptive-training --namespace=shopping --user=asep 
 
 kubectl config use-context dev
 
 kubectl get pods
-Error from server (Forbidden): pods is forbidden: User "Bob Smith" cannot list resource "pods" in API group "" in the namespace "shopping"
+Error from server (Forbidden): pods is forbidden: User "asep" cannot list resource "pods" in API group "" in the namespace "shopping"
 
 
-## Give Bob Smith Access
+## Give asep Access
 
 ```
+export KUBECONFIG=~/.kube/config
 cd kubernetes/rbac
 kubectl create ns shopping
 
-kubectl -n shopping apply -f .\role.yaml
-kubectl -n shopping apply -f .\rolebinding.yaml
+kubectl -n shopping apply -f role.yaml
+kubectl -n shopping apply -f rolebinding.yaml
 ```
 
-## Test Access as Bob
+## Test Access as asep
 
 kubectl get pods
 No resources found in shopping namespace.
