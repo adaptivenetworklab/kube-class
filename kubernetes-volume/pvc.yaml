@@ -1,11 +1,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-<namakalian>
+  name: pvc-test
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
-  volumeName: pv-<namakalian>
+  # volumeName: pv-<namakalian>
+  # storageClassName: longhorn

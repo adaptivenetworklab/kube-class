@@ -44,8 +44,8 @@ kubectl apply -n postgres -f ./postgres-no-pv.yaml
 
 
 ```
-kubectl apply -f persistentvolume.yaml
-kubectl apply -n postgres -f persistentvolumeclaim.yaml
+kubectl apply -f pv-<namakalian>.yaml
+kubectl apply -f persistentvolumeclaim.yaml
 
 kubectl delete -f persistentvolume.yaml
 kubectl delete -n postgres -f persistentvolumeclaim.yaml
