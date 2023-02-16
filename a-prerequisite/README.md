@@ -26,7 +26,7 @@ docker run hello-world
 Kubectl adalah Kubernetes Command Line Interface (CLI) sehingga user dapat mengakses dan mengelola cluster melalui terminal. Berikut cara instalasinya:
 
 **Windows**:
-Berikut cara melakukan instalasi [Kubectl di Windows](https://youtu.be/G9MmLUsBd3g).
+Berikut cara melakukan instalasi [Kubectl di Windows](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/).
 
 **Linux**:
 Download binary stable release versi terbaru dari kubectl.
