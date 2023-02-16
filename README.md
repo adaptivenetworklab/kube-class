@@ -25,7 +25,6 @@
 ## Sample Applications
 - [Boutique Application Microservice](https://github.com/raflihadiana/kube-class/tree/main/microservice-app) 
 - [Mongo Express Database Application](https://github.com/raflihadiana/kube-class/tree/main/database-app)
-- [Grafana - Promotheus Application](https://github.com/raflihadiana/kube-class/tree/main/monitoring-app)
 
 ## Bonus Module
 | No. | Module Name |
