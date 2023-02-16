@@ -5,16 +5,16 @@ metadata:
   name: test-ingress
 spec:
   rules:
-    - host: user1.adaptivenetworklab.org
+    - host: user6.adaptivenetworklab.org
       http:
         paths:
-          - path: /v1/halo
+          - path: /mongo
             pathType: Prefix
             backend:
               service:
-                name: hello-service
+                name: mongodb-service
                 port:
-                  number: 80
+                  number: 8081
           - path: /v2/halo
             pathType: Prefix
             backend:

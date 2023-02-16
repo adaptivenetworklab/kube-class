@@ -2,17 +2,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: dev
+    aplikasi: frontend
   name: nginx-lab-1
+  namespace: training
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: dev
+      aplikasi: frontend
   template:
     metadata:
       labels:
-        app: dev
+        aplikasi: frontend
     spec:
       containers:
       - image: nginx
