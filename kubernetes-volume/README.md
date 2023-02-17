@@ -10,10 +10,9 @@ Same can be demonstrated using Kubernetes
 ```
 cd ./kubernetes-volume/
 
-kubectl create ns postgres
-kubectl apply -n postgres -f ./postgres-no-pv.yaml
-kubectl -n postgres get pods 
-kubectl -n postgres exec -it postgres-0 -- bash
+kubectl apply -f ./postgres-no-pv.yaml
+kubectl get pods 
+kubectl exec -it postgres-0 -- bash
 
 # login to postgres
 psql --username=admin postgresdb
