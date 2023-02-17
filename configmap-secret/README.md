@@ -21,7 +21,7 @@ Gunakan cluster local untuk melakukan demo ini.
     Di dalam container masuk ke dalam file `mosquito.conf`
     ```bash
     cd mosquitto/config/
-    less mosquito.conf
+    less mosquitto.conf
     ```
     Setelah selesai, hapus pod
     ```bash

@@ -39,7 +39,7 @@ spec:
       volumes:
       - name: data
         persistentVolumeClaim:
-          claimName: pvc-<namakalian>
+          claimName: pvc-radit
 ---
 apiVersion: v1
 kind: Service
